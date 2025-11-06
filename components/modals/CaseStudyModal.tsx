@@ -1,5 +1,7 @@
 
 
+
+
 import React, { useEffect, useRef, useCallback } from 'react';
 // FIX: Import Variants type to correctly type animation variants.
 import { motion, AnimatePresence, Variants } from 'framer-motion';
@@ -7,7 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { X, ArrowRight, Award } from 'lucide-react';
 import { useGlobalStore } from '../../store/globalStore';
 import { useFormStore } from '../../store/formStore';
-import { usePrefersReducedMotion, SCALE_SLIDE_FADE, SIMPLE_FADE } from '../../utils/motion';
+import { usePrefersReducedMotion, SCALE_SLIDE_FADE, SIMPLE_FADE, makeMotionStyles } from '../../utils/motion';
 import { useTiltEffect } from '../../hooks/useTiltEffect';
 import Button from '../common/Button';
 import { CaseStudy } from '../../types';
@@ -22,7 +24,7 @@ const TiltedMetricCard: React.FC<{ metric: CaseStudy['metrics'][number] }> = ({ 
             <motion.div
                 ref={ref}
                 // FIX: Pass the entire style object from the hook. Motion values like rotateX/Y cannot be props.
-                style={style}
+                style={makeMotionStyles(style)}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 whileHover={!prefersReducedMotion ? { scale: 1.05 } : {}}

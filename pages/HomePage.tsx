@@ -2,6 +2,8 @@
 
 
 
+
+
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useTransform, animate, useInView, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
@@ -12,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useGlobalStore } from '../store/globalStore';
 import { useFormStore } from '../store/formStore';
-import { usePrefersReducedMotion, FADE_UP, FADE_UP_STAGGER_CONTAINER, FADE_UP_STAGGER_CHILD, SIMPLE_FADE, SIMPLE_STAGGER_CONTAINER, SIMPLE_STAGGER_CHILD } from '../utils/motion';
+import { usePrefersReducedMotion, FADE_UP, FADE_UP_STAGGER_CONTAINER, FADE_UP_STAGGER_CHILD, SIMPLE_FADE, SIMPLE_STAGGER_CONTAINER, SIMPLE_STAGGER_CHILD, makeMotionStyles } from '../utils/motion';
 import { useTiltEffect } from '../hooks/useTiltEffect';
 import { useRipple } from '../hooks/useRipple';
 import Logomark from '../components/branding/Logomark';
@@ -326,9 +328,7 @@ const PhaseCard: React.FC<{ phase: ProcessPhase; index: number; onInView: () => 
                         onMouseLeave={onMouseLeave}
                         whileHover={!prefersReducedMotion ? { scale: 1.02 } : {}}
                         className="group relative bg-surface-container/60 supports-backdrop-blur:backdrop-blur-md border border-outline-variant rounded-3xl p-6 md:p-8 elevation-1 hover:elevation-2 transition-all duration-300 ease-out"
-                        // FIX: Pass the tilt effect style object directly and cast the combined style object for TS.
-                        // Motion values like rotateX/rotateY cannot be passed as props.
-                        style={{...tiltStyle, '--accent-color': phase.accentColor } as any}
+                        style={makeMotionStyles({...tiltStyle, '--accent-color': phase.accentColor })}
                     >
                         <div className="absolute inset-0 bg-primary-50/0 group-hover:bg-primary-50/[.08] rounded-3xl transition-colors duration-300 pointer-events-none" />
 
@@ -766,7 +766,7 @@ const WorkSection: React.FC = () => {
                     ref={ref}
                     // FIX: Pass the style object from useTiltEffect directly to the style prop.
                     // Motion values like rotateX/rotateY cannot be passed as props.
-                    style={style}
+                    style={makeMotionStyles(style)}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
                     whileHover={!prefersReducedMotion ? { scale: 1.02 } : {}}
@@ -809,7 +809,7 @@ const WorkSection: React.FC = () => {
                     ref={ref}
                     // FIX: Pass the style object from useTiltEffect directly to the style prop.
                     // Motion values like rotateX/rotateY cannot be passed as props.
-                    style={style}
+                    style={makeMotionStyles(style)}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
                     whileHover={!prefersReducedMotion ? { scale: 1.02 } : {}}

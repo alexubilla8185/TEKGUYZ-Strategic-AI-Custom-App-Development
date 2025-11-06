@@ -1,8 +1,9 @@
 
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTiltEffect } from '../../hooks/useTiltEffect';
-import { usePrefersReducedMotion } from '../../utils/motion';
+import { usePrefersReducedMotion, makeMotionStyles } from '../../utils/motion';
 import { useRipple } from '../../hooks/useRipple';
 
 interface CardProps {
@@ -34,7 +35,7 @@ const Card: React.FC<CardProps> = ({ children, className = '', onClick }) => {
             ref={ref}
             className={`relative bg-surface-container-low rounded-3xl p-5 md:p-6 overflow-hidden ${className}`}
             // FIX: Pass the entire style object from the hook. Motion values like rotateX/Y cannot be props.
-            style={motionStyle}
+            style={makeMotionStyles(motionStyle)}
             whileHover={!prefersReducedMotion ? { scale: 1.02 } : {}}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}

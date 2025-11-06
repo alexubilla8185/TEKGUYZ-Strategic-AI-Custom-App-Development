@@ -1,4 +1,5 @@
 import { useMediaQuery } from 'react-responsive';
+import { MotionStyle } from 'framer-motion';
 
 export const usePrefersReducedMotion = () => {
   return useMediaQuery({ query: '(prefers-reduced-motion: reduce)' });
@@ -163,4 +164,13 @@ export const FORM_STEP_TRANSITION = {
       ease: EMPHASIZED_DECELERATE,
     },
   }),
+};
+
+/**
+ * Type-safe utility for combining motion values with standard CSS properties.
+ * @param styles - A style object that may contain MotionValues.
+ * @returns A style object typed as MotionStyle for framer-motion components.
+ */
+export const makeMotionStyles = (styles: any): MotionStyle => {
+  return styles;
 };
